@@ -1,11 +1,45 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Adexos\FixCustomerCivility\Model;
+
+use Magento\Config\Model\Config\Source\Nooptreq as NooptreqSource;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Store\Api\Data\StoreInterface;
 
 class Options extends \Magento\Customer\Model\Options
 {
+    /**
+     * Retrieve name prefix dropdown options
+     *
+     * @param null|string|bool|int|StoreInterface $store
+     *
+     * @return array|bool
+     * @throws NoSuchEntityException
+     */
+    public function getNamePrefixOptions($store = null)
+    {
+        return $this->_prepareNamePrefixSuffixOptions(
+            $this->addressHelper->getConfig('prefix_options', $store),
+            $this->addressHelper->getConfig('prefix_show', $store) == NooptreqSource::VALUE_OPTIONAL
+        );
+    }
+
+    /**
+     * Retrieve name suffix dropdown options
+     *
+     * @param null|string|bool|int|StoreInterface $store
+     *
+     * @return array|bool
+     * @throws NoSuchEntityException
+     */
+    public function getNameSuffixOptions($store = null)
+    {
+        return $this->_prepareNamePrefixSuffixOptions(
+            $this->addressHelper->getConfig('suffix_options', $store),
+            $this->addressHelper->getConfig('suffix_show', $store) == NooptreqSource::VALUE_OPTIONAL
+        );
+    }
+
     protected function _prepareNamePrefixSuffixOptions($options, $isOptional = false)
     {
         $options = trim($options);
