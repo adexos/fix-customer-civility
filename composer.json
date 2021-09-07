@@ -1,0 +1,19 @@
+{
+    "name": "adexos/fixcustomercivility",
+    "description": "",
+    "require": {
+        "php": "^7.4",
+        "magento/module-customer": "^103.0.2-p2",
+        "magento/magento-composer-installer": "*"
+    },
+    "type": "magento2-module",
+    "version": "0.1.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Adexos\\FixCustomerCivility\\": ""
+        }
+    }
+}
